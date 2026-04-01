@@ -1,0 +1,1 @@
+# starterkit-batch-image-generation-react-web
