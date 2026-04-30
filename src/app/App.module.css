@@ -133,7 +133,6 @@
 }
 
 
-
 :global(body.no-scroll) {
   overflow: hidden;
 }
