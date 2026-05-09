@@ -13,28 +13,16 @@ import { createRoot } from 'react-dom/client';
 
 import App from './app/App';
 
-// ============================================================================
-// Configuration
-// ============================================================================
-
 /**
  * Application configuration for CE.SDK.
  * Customize license and baseURL for production use.
  */
 const config: Configuration = {
-  // Unique user identifier for analytics (customize for your app)
-  userId: 'starterkit-batch-image-generation-user'
+  userId: 'starterkit-batch-image-generation-user',
 
-  // Local assets (uncomment and set path for self-hosted assets)
-  // baseURL: `/assets/`,
-
-  // License key (required for production)
-  // license: 'YOUR_LICENSE_KEY',
+  // Local assets for development
+  
 };
-
-// ============================================================================
-// Initialize React Application
-// ============================================================================
 
 const container = document.getElementById('root');
 if (!container) {

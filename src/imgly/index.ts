@@ -57,7 +57,7 @@ export { DesignEditorConfig } from './config/design-editor/plugin';
  *
  * @example
  * ```typescript
- * const cesdk = await CreativeEditorSDK.create('#editor', {});
+ * const cesdk = await CreativeEditorSDK.create('#editor', {
  * await initBatchImageGenerationTemplateEditor(cesdk);
  * // Set placeholder variables
  * cesdk.engine.variable.setString('FirstName', 'Firstname');
