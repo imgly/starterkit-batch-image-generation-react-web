@@ -10,6 +10,7 @@
 import type CreativeEditorSDK from '@cesdk/cesdk-js';
 import {
   BlurAssetSource,
+  ImageColorsAssetSource,
   ColorPaletteAssetSource,
   CropPresetsAssetSource,
   DemoAssetSources,
@@ -57,7 +58,7 @@ export { DesignEditorConfig } from './config/design-editor/plugin';
  *
  * @example
  * ```typescript
- * const cesdk = await CreativeEditorSDK.create('#editor', {});
+ * const cesdk = await CreativeEditorSDK.create('#editor', {
  * await initBatchImageGenerationTemplateEditor(cesdk);
  * // Set placeholder variables
  * cesdk.engine.variable.setString('FirstName', 'Firstname');
@@ -85,6 +86,7 @@ export async function initBatchImageGenerationTemplateEditor(
   // Asset Source Plugins
   // ============================================================================
 
+  await cesdk.addPlugin(new ImageColorsAssetSource());
   await cesdk.addPlugin(new ColorPaletteAssetSource());
   await cesdk.addPlugin(new TypefaceAssetSource());
   await cesdk.addPlugin(new TextAssetSource());
@@ -157,9 +159,12 @@ export async function initBatchImageGenerationInstanceEditor(
   // Asset Source Plugins
   // ============================================================================
 
+  await cesdk.addPlugin(new ImageColorsAssetSource());
   await cesdk.addPlugin(new ColorPaletteAssetSource());
   await cesdk.addPlugin(new TypefaceAssetSource());
   await cesdk.addPlugin(new TextAssetSource());
+  await cesdk.addPlugin(new VectorShapeAssetSource());
+  await cesdk.addPlugin(new StickerAssetSource());
   await cesdk.addPlugin(
     new UploadAssetSources({
       include: ['ly.img.image.upload']

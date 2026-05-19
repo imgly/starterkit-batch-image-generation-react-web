@@ -6,7 +6,6 @@
  * const results = await batchRender(sceneString, [
  *   { images: { Photo: '/img/1.jpg' }, variables: { Name: 'Alice' } },
  *   { images: { Photo: '/img/2.jpg' }, variables: { Name: 'Bob' } }
- * ], { baseURL: '/assets' });
  *
  * results.forEach(r => console.log(URL.createObjectURL(r.blob)));
  * ```
