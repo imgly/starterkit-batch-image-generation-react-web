@@ -18,6 +18,7 @@ import {
 
 import styles from './EditorModal.module.css';
 
+
 interface EditorModalProps {
   /** Editor type: 'template' for Creator role, 'instance' for Adopter role */
   type: 'template' | 'instance';
