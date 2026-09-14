@@ -18,7 +18,6 @@ import { TemplateSelector } from './TemplateSelector/TemplateSelector';
 
 import styles from './App.module.css';
 
-
 /** Template variable names - must match the CE.SDK template */
 const VAR_NAMES = {
   FIRST_NAME: 'FirstName',
