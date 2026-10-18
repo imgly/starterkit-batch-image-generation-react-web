@@ -59,7 +59,6 @@ export function EditorModal({
     async (cesdk: CreativeEditorSDK) => {
       cesdkRef.current = cesdk;
 
-
       // Initialize editor based on type
       if (type === 'template') {
         await initBatchImageGenerationTemplateEditor(cesdk);
@@ -79,7 +78,7 @@ export function EditorModal({
           in: 'ly.img.navigation.bar',
           match: { id: 'ly.img.title.navigationBar' }
         },
-        { title }
+        { payload: { title } }
       );
 
       // Register save action (app-layer)

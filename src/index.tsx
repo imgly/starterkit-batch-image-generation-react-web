@@ -21,6 +21,7 @@ const config: Configuration = {
   userId: 'starterkit-batch-image-generation-user',
 
   // Local assets for development
+  
 };
 
 const container = document.getElementById('root');
