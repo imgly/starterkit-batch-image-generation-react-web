@@ -25,7 +25,12 @@ export type MimeType = 'image/png' | 'image/jpeg' | 'image/webp';
 export interface BatchItem {
   /** Image replacements: block name -> image URL */
   images?: Record<string, string>;
-  /** Variable substitutions: variable name -> value */
+  /**
+   * Variable substitutions: variable name -> value. Each item starts from the
+   * values of the template, so a value that every item needs goes into each
+   * item. A variable that the caller sets on the engine while no scene exists
+   * waits for one scene only, so it reaches the first item alone.
+   */
   variables?: Record<string, string>;
 }
 
@@ -61,8 +66,8 @@ export interface BatchRenderOptions {
  * Renders the template's **first page** only; further pages are ignored.
  *
  * Creates a fresh engine instance, renders all items, then disposes — unless
- * `options.engine` is given, in which case that engine is reused, left open and
- * handed back with the variables it came with.
+ * `options.engine` is given, in which case that engine is reused and left open
+ * with the scene of the last item loaded.
  *
  * @param sceneString - The template scene to render
  * @param items - Array of items with images and variables to apply
@@ -83,21 +88,14 @@ export async function batchRender(
     }));
   engine.editor.setSetting('page/title/show', false);
 
-  // The variable store is engine state, not scene state, so a value one item
-  // sets outlives it. Every item starts again from this snapshot.
-  const variablesBefore = Object.fromEntries(
-    engine.variable
-      .findAll()
-      .map((name) => [name, engine.variable.getString(name)])
-  );
-
   try {
     const results: BatchResult[] = [];
     const mimeType = options.mimeType ?? 'image/png';
 
     for (const item of items) {
+      // The scene holds the variables, so each load starts the item from the
+      // values of the template.
       await engine.scene.load(sceneString);
-      resetVariables(engine, variablesBefore);
 
       // Apply images
       if (item.images) {
@@ -128,22 +126,8 @@ export async function batchRender(
 
     return results;
   } finally {
-    resetVariables(engine, variablesBefore);
     if (ownsEngine) {
       engine.dispose();
     }
-  }
-}
-
-/** Puts the variable store back to the values the batch started with. */
-function resetVariables(
-  engine: CreativeEngineInstance,
-  values: Record<string, string>
-): void {
-  for (const name of engine.variable.findAll()) {
-    engine.variable.remove(name);
-  }
-  for (const [name, value] of Object.entries(values)) {
-    engine.variable.setString(name, value);
   }
 }
